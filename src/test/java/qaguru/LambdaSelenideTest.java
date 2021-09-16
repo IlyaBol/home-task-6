@@ -1,7 +1,5 @@
 package qaguru;
 
-
-import com.codeborne.selenide.Condition;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.exist;
@@ -14,28 +12,32 @@ import static org.openqa.selenium.By.partialLinkText;
 
 public class LambdaSelenideTest {
 
+    private final static String REPOSITORY = "eroshenkoam/allure-example";
+    private final static Integer NUMBER_ISSUE = 68;
+
     @Test
     public void testGithub() {
+
         step("Открыть главную страницу", () -> {
         });
         open("https://github.com/");
 
-        step("Найти репозиторий ", () -> {
+        step("Найти репозиторий" + " " + REPOSITORY, () -> {
         });
-        $(".header-search-input").setValue("eroshenkoam/allure-example");
+        $(".header-search-input").setValue(REPOSITORY);
         $(".header-search-input").submit();
 
-        step("Выбрать репозиторий", () -> {
+        step("Перейти в репозиторий" + " " + REPOSITORY, () -> {
         });
-        $(linkText("eroshenkoam/allure-example")).click();
+        $(linkText(REPOSITORY)).click();
 
-        step("Выбрать Issues", () -> {
+        step("Открыть Issues", () -> {
         });
         $(partialLinkText("Issues")).click();
 
-        step("Проверить Issues 68", () -> {
+        step("Проверить Issues c номером" + " " + NUMBER_ISSUE, () -> {
         });
-        $(withText("#68")).should(exist);
+        $(withText("#" + NUMBER_ISSUE)).should(exist);
 
     }
 }
